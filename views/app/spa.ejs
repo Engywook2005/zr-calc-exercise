@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>App of wonders</title>
+        <script type="text/javascript">
+            ((token) => {
+                window.app = window.app || [];
+
+                const passToken = function() {
+                    return {
+                      call: 'setToken',
+                      args: token
+                    };
+                }
+
+                window.app.push(passToken);
+            })(<%= session.token %>);
+        </script>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script type="text/javascript" src="js/index_bundle.js"></script>
+    </body>
+</html>
