@@ -3,19 +3,18 @@
   "version": "1.0.0",
   "description": "Basic node.js serving with mysql db and registration/login handling",
   "main": "index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "buildDev": "webpack --mode development --config webpack/webpack.common.js",
-    "localServer": "node server genlogin root root 127.0.0.1 3308",
-    "makeDB": "docker exec mariadbgenlogin bin/bash ./mySQLSchema/createDB.sh"
+    "localServer": "node server"
   },
   "author": "Greg Thorson",
+  "license": "MIT",
   "dependencies": {
-    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
-    "ejs": "^3.1.3",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "mysql": "^2.18.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
