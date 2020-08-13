@@ -32,10 +32,13 @@ class AppRouting {
 
         loadProfile.forEach((loadDateHour) => {
           const dateTimeArray = loadDateHour['Date/Time'].split('  ');
+
+          // @TODO likely to make more sense to pull the time out and create an array
+          // length 365 for each time of day.
           const newObj = {
             date: dateTimeArray[0].replace(' ', ''),
             hour: dateTimeArray[1],
-            load: loadDateHour['Electricity:Facility [kWh](Hourly)'],
+            kwh: loadDateHour['Electricity:Facility [kWh](Hourly)'],
           };
 
           this.loadProfile.push(newObj);
