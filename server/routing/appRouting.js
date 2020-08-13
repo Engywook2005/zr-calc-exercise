@@ -21,7 +21,7 @@ class AppRouting {
    * something more fluid than a static file, e.g. a database; so we would be getting that ready.
    */
   prepLoadProfile() {
-    // @TODO
+    // @TODO when this completes is when I should do the app.get part.
 
     // loadProfile created by running yarn run loadProfile.
     fs.readFile('./sourceData/loadProfile.json', 'utf8', (err, data) => {
