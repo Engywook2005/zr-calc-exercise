@@ -64,7 +64,18 @@ const Forms = {
    * @returns {HTMLElement}
    */
   ChargingHours(props) {
-    return (Forms.BasicForm(<div>Charging hours</div>));
+    const { onchange } = props;
+    const { carChargingHours } = props;
+
+    return (Forms.BasicForm(
+      <div>
+        <p className="panelTitle">Charging hours</p>
+        <FormElements.ChargeTimeDropdown
+          onchange={onchange}
+          carChargingHours={carChargingHours}
+        />
+      </div>,
+    ));
   },
 
   /**

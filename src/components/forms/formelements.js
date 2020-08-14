@@ -47,6 +47,57 @@ const FormElements = {
       />
     );
   },
+
+  ChargeTimeDropdown(props) {
+    // @TODO make charging duration settable.
+
+    const { carChargingHours } = props;
+    const { onchange } = props;
+    const { start } = carChargingHours;
+
+    // Gets end time accounting for possibility that end time is after midnight
+    // but start time is before midnight.
+    const handleOvernightTime = (startTime) => {
+      const endTime = (startTime + 8) < 24
+        ? startTime + 8
+        : (startTime + 8) - 24;
+      return endTime;
+    };
+
+    const times = [...Array(24).keys()];
+
+    const options = times.map((time, key) => (
+      <option
+        value={time}
+        key={key}
+      >
+        {time}
+        :00:00 to
+        {' '}
+        {handleOvernightTime(time)}
+        :00:00
+      </option>
+    ));
+
+    return (
+      <select
+        value={start}
+        onChange={(e) => {
+          const startTime = parseInt(e.target.value, 10);
+          const endTime = handleOvernightTime(startTime);
+
+          const newTimeRange = {
+            start: startTime,
+            end: endTime,
+          };
+
+          onchange(newTimeRange, 'carChargingHours');
+        }}
+      >
+        {options}
+      </select>
+    );
+  },
 };
 
 module.exports = FormElements;

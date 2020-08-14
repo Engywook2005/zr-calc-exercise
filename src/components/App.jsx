@@ -20,7 +20,7 @@ class App extends React.Component {
       userRate: null,
       carChargingHours: {
         start: 0,
-        end: 0,
+        end: 8,
       },
       milesPerYear: 20000,
       annualFlat: 0,
@@ -122,8 +122,8 @@ class App extends React.Component {
             onchange={handleInputChange}
           />
           <Forms.ChargingHours
-            chargingStart={carChargingHours.start}
-            chargingEnd={carChargingHours.end}
+            carChargingHours={carChargingHours}
+            onchange={handleInputChange}
           />
           <Forms.Output
             annualFlat={annualFlat}
