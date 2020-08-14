@@ -1,4 +1,4 @@
-const RateCalc = {
+const AnnualRateCalc = {
 
   /**
    *
@@ -55,7 +55,7 @@ const RateCalc = {
     // i iterates over rate plans.
     for (i = 0; i < bpSetKeys.length; i += 1) {
       // Rates for each hour of the day.
-      const ratesByHour = RateCalc.getRatesByHour(bpSets[bpSetKeys[i]]);
+      const ratesByHour = AnnualRateCalc.getRatesByHour(bpSets[bpSetKeys[i]]);
 
       // Initialize total rates for each rate type.
       totalRates[bpSetKeys[i]] = 0;
@@ -72,7 +72,7 @@ const RateCalc = {
 
         // k iterates over days for each hour.
         for (k = 0; k < targetProfileHour.length; k += 1) {
-          totalRates[bpSetKeys[i]] += targetProfileHour[k] * ratesByHour[j];
+          totalRates[bpSetKeys[i]] += targetProfileHour[k].kwh * ratesByHour[j];
         }
       }
     }
@@ -81,4 +81,4 @@ const RateCalc = {
   },
 };
 
-module.exports = RateCalc;
+module.exports = AnnualRateCalc;
