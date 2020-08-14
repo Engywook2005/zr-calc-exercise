@@ -77,7 +77,21 @@ const AnnualRateCalc = {
       }
     }
 
-    return totalRates;
+    return AnnualRateCalc.ratesToFinancial(totalRates);
+  },
+
+  ratesToFinancial(rates) {
+    const keys = Object.keys(rates);
+    const newRates = {};
+
+    keys.forEach((key) => {
+      const rawValue = rates[key];
+      const roundedValue = parseFloat(rawValue.toFixed(2));
+
+      newRates[key] = roundedValue;
+    });
+
+    return newRates;
   },
 };
 
