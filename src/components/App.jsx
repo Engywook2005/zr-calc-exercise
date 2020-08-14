@@ -8,9 +8,7 @@ class App extends React.Component {
 
     this.state = {
       rateDefs: {
-        flatRate: {
-          1: 0.15,
-        },
+        flatRate: 0.15,
         tou: {
           1: 0.08,
           12: 0.2,
@@ -43,15 +41,22 @@ class App extends React.Component {
    */
   checkCalculating() {
     if (this.state.calculating) {
-      Ajax.doAjaxQuery('./data/loadProfile')
+      Ajax.doAjaxQuery(`./data/loadProfile?cb=${Math.floor(Math.random() * 10000000)}`)
         .then((data) => {
+          const loadProfile = JSON.parse(data);
 
+          debugger;
+        })
+        .catch((err) => {
+          console.log(`Ooopsssssss.... ${err}`);
         });
     }
   }
 
   setState(newState) {
-    // If key of newState is rateDefs, need to set calculating to true as well.
+    // Will need to set calculating to true if state includes change to rateDefs.
+
+    super.setState(newState);
   }
 
   render() {
