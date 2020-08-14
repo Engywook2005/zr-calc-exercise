@@ -11,7 +11,7 @@ const AnnualRateCalc = {
   getRatesByHour(bpSet) {
     let timeArr = [];
 
-    if (!Array.isArray(bpSet)) {
+    if (typeof bpSet === 'number') {
       // For a flat rate just return an array where all hours have the same charge.
       timeArr = Array(24).fill(bpSet);
     } else {
@@ -24,9 +24,9 @@ const AnnualRateCalc = {
           // Will be adding a number of values equal to the number of hours before change in rate
           ? times[i + 1] - times[i]
           // Last rate of the day so fill the remaining hours.
-          : 24 - times[i];
+          : 24 - timeArr.length;
 
-        timeArr = timeArr.concat(timeArr, Array(nextArrLength).fill(bpSet[times[i]]));
+        timeArr = timeArr.concat(Array(nextArrLength).fill(bpSet[times[i]]));
       }
     }
 
