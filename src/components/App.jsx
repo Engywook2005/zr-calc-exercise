@@ -1,6 +1,7 @@
 import React from 'react';
 import Ajax from '../utils/ajax';
 import AnnualRateCalculator from '../utils/annualRateCalculator';
+import Forms from './forms/forms';
 import Modals from './supporting/modals';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
           18: 0.08,
         },
       },
+      userRate: null,
       carChargingHours: {
         start: 0,
         end: 0,
@@ -38,7 +40,7 @@ class App extends React.Component {
   }
 
   setState(newState) {
-    // Will need to set calculating to true if state includes change to rateDefs.
+    // @TODO Will need to set calculating to true if state includes change to rateDefs.
 
     super.setState(newState);
   }
@@ -73,11 +75,40 @@ class App extends React.Component {
   render() {
     const { calculating } = this.state;
     const calcModal = calculating ? Modals.CalculatingModal() : <div />;
+    const { userRate } = this.state;
+    const { milesPerYear } = this.state;
+    const { carChargingHours } = this.state;
+    const { annualFlat } = this.state;
+    const { annualTOU } = this.state;
+    const { carImpactAnnualFlat } = this.state;
+    const { carImpactAnnualTOU } = this.state;
+
+    const whichRateForm = Forms.WhichRate({
+      userRate,
+    });
+    const milesPerYearForm = Forms.MilesPerYear({
+      milesPerYear,
+    });
+    const chargingHours = Forms.ChargingHours({
+      chargingStart: carChargingHours.start,
+      chargingEnd: carChargingHours.end,
+    });
+    const output = Forms.Output({
+      annualFlat,
+      annualTOU,
+      carImpactAnnualFlat,
+      carImpactAnnualTOU,
+    });
 
     return (
       <div>
         {calcModal}
-        <p>Howdy ho!</p>
+        <div className="calculator">
+          <div>{whichRateForm}</div>
+          <div>{milesPerYearForm}</div>
+          <div>{chargingHours}</div>
+          <div>{output}</div>
+        </div>
       </div>
     );
   }
