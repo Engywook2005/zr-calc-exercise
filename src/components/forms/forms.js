@@ -42,7 +42,19 @@ const Forms = {
    * @returns {HTMLElement}
    */
   MilesPerYear(props) {
-    return (Forms.BasicForm(<div>miles per year</div>));
+    const { milesPerYear } = props;
+    const { onchange } = props;
+
+    return (Forms.BasicForm(
+      <div>
+        <p className="panelTitle">Miles driven per year</p>
+        <FormElements.MileageSlider
+          milesPerYear={milesPerYear}
+          onchange={onchange}
+        />
+        <p>{milesPerYear}</p>
+      </div>,
+    ));
   },
 
   /**
@@ -70,6 +82,7 @@ const Forms = {
   Output(props) {
     return (Forms.BasicForm(
       <div>
+        <p className="panelTitle">Compare Rates</p>
         <FormElements.OutputColumn
           title="Flat rate"
           baseAnnual={props.annualFlat}

@@ -16,6 +16,11 @@ body {
     padding: 1rem;
 }
 
+.panelTitle {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 #bestChoice {
     clear: left;
 }

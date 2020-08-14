@@ -22,7 +22,7 @@ class App extends React.Component {
         start: 0,
         end: 0,
       },
-      milesPerYear: 0,
+      milesPerYear: 20000,
       annualFlat: 0,
       annualTOU: 0,
       carImpactAnnualFlat: 0,
@@ -31,6 +31,8 @@ class App extends React.Component {
       totalTOU: 0,
       calculating: true,
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -52,10 +54,12 @@ class App extends React.Component {
     const totalFlat = annualFlat + carImpactAnnualFlat;
     const totalTOU = annualTOU + carImpactAnnualTOU;
 
-    newState.totalFlat = totalFlat;
-    newState.totalTOU = totalTOU;
+    const updatedNewState = newState;
 
-    super.setState(newState);
+    updatedNewState.totalFlat = totalFlat;
+    updatedNewState.totalTOU = totalTOU;
+
+    super.setState(updatedNewState);
   }
 
   /**
@@ -85,6 +89,13 @@ class App extends React.Component {
     }
   }
 
+  handleInputChange(newVal, propName) {
+    const newState = {};
+    newState[propName] = newVal;
+
+    this.setState(newState);
+  }
+
   render() {
     const { calculating } = this.state;
     const calcModal = calculating ? <Modals.CalculatingModal /> : <div />;
@@ -97,6 +108,7 @@ class App extends React.Component {
     const { carImpactAnnualTOU } = this.state;
     const { totalFlat } = this.state;
     const { totalTOU } = this.state;
+    const { handleInputChange } = this;
 
     return (
       <div>
@@ -107,6 +119,7 @@ class App extends React.Component {
           />
           <Forms.MilesPerYear
             milesPerYear={milesPerYear}
+            onchange={handleInputChange}
           />
           <Forms.ChargingHours
             chargingStart={carChargingHours.start}

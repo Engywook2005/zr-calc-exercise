@@ -30,6 +30,23 @@ const FormElements = {
       </div>
     );
   },
+
+  MileageSlider(props) {
+    const { onchange } = props;
+    const { milesPerYear } = props;
+
+    return (
+      <input
+        type="range"
+        min="0"
+        max="100000"
+        value={milesPerYear}
+        onChange={(e) => {
+          onchange(parseInt(e.target.value, 10), 'milesPerYear');
+        }}
+      />
+    );
+  },
 };
 
 module.exports = FormElements;
