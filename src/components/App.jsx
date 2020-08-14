@@ -55,6 +55,14 @@ class App extends React.Component {
         .then((data) => {
           const loadProfile = JSON.parse(data);
           const newRates = AnnualRateCalculator.getRateFromProfile(rateDefs, loadProfile);
+
+          const newState = {
+            annualFlat: newRates.flatRate,
+            annualTOU: newRates.tou,
+            calculating: false,
+          };
+
+          this.setState(newState);
         })
         .catch((err) => {
           console.log(`Ooopsssssss.... ${err}`);
