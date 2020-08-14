@@ -34,6 +34,60 @@ const AnnualRateCalc = {
   },
 
   /**
+   * Gets cost of charging car.
+   *
+   * @param {*}       bpSets              Number or array. If a number, return an array of length 24
+   *                                      where all values are the same.
+   *                                      Otherwise, will need to return an array of length 24
+   *                                      with variable values.
+   * @param {Object}  carChargingHours    Beginning and end times for charging vehicle.
+   * @param {Number}  milesPerYear        Miles driven per year.
+   * @returns {Object} Impact of car charging on flat and TOU plans.
+   */
+  getCarChargingCosts(bpSets, carChargingHours, milesPerYear) {
+    // @TODO should not really be necessary to convert to daily...
+    const dailyMileage = milesPerYear / 365;
+    const bpSetKeys = Object.keys(bpSets);
+
+    // @TODO make cost per mile user-settable.
+    // Presuming 8 hours to charge a car, divide the kwh load by the number of
+    // hours it takes to charge the car.
+    // @TODO make charge duration also settable.
+    const chargeTimeKWH = dailyMileage * (0.3 / 8);
+    const carChargingCosts = {};
+
+    let i; // Set of rates
+    let j; // Times of day
+
+    for (i = 0; i < bpSetKeys.length; i += 1) {
+      const ratesByHour = AnnualRateCalc.getRatesByHour(bpSets[bpSetKeys[i]]);
+      const startTime = carChargingHours.start;
+
+      // Make it easier to iterate over hours.
+      const endTime = carChargingHours.end < carChargingHours.start
+        ? carChargingHours.end + 24
+        : carChargingHours.end;
+
+      let runningTotal = 0;
+
+      for (j = startTime; j <= endTime; j += 1) {
+        // Back to numbers that point to a value.
+        const thisTime = j > 23
+          ? j - 24
+          : j;
+
+        runningTotal += ratesByHour[thisTime] * chargeTimeKWH;
+      }
+
+      carChargingCosts[bpSetKeys[i]] = runningTotal * 365;
+    }
+
+    const returnedCarChargingCosts = this.ratesToFinancial(carChargingCosts);
+
+    return returnedCarChargingCosts;
+  },
+
+  /**
    * Takes hourly rate plans and returns total charge over a year for these plans.
    *
    * @param {*}      bpSets       Number or data object. The scheme for hourly rates
@@ -48,9 +102,9 @@ const AnnualRateCalc = {
     const totalRates = {};
     const bpSetKeys = Object.keys(bpSets);
 
-    let i;
-    let j;
-    let k;
+    let i; // Set of hourly rates
+    let j; // Hours
+    let k; // Days in year
 
     // i iterates over rate plans.
     for (i = 0; i < bpSetKeys.length; i += 1) {
@@ -80,6 +134,12 @@ const AnnualRateCalc = {
     return AnnualRateCalc.ratesToFinancial(totalRates);
   },
 
+  /**
+   * Ensures that numbers are rounded to two decimal places.
+   *
+   * @param rates
+   * @returns {{}}
+   */
   ratesToFinancial(rates) {
     const keys = Object.keys(rates);
     const newRates = {};
@@ -93,6 +153,21 @@ const AnnualRateCalc = {
 
     return newRates;
   },
+
+  /**
+   * Gets end time accounting for possibility that end time is after midnight
+   * but start time is before midnight.
+   *
+   * @param {Number} startTime
+   * @returns {Number}
+   */
+  handleOvernightTime(startTime) {
+    const endTime = (startTime + 8) < 24
+      ? startTime + 8
+      : (startTime + 8) - 24;
+    return endTime;
+  },
+
 };
 
 module.exports = AnnualRateCalc;

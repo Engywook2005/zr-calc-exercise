@@ -1,4 +1,5 @@
 import React from 'react';
+import AnnualRateCalculator from '../../utils/annualRateCalculator';
 
 const FormElements = {
 
@@ -55,15 +56,6 @@ const FormElements = {
     const { onchange } = props;
     const { start } = carChargingHours;
 
-    // Gets end time accounting for possibility that end time is after midnight
-    // but start time is before midnight.
-    const handleOvernightTime = (startTime) => {
-      const endTime = (startTime + 8) < 24
-        ? startTime + 8
-        : (startTime + 8) - 24;
-      return endTime;
-    };
-
     const times = [...Array(24).keys()];
 
     const options = times.map((time, key) => (
@@ -74,7 +66,7 @@ const FormElements = {
         {time}
         :00:00 to
         {' '}
-        {handleOvernightTime(time)}
+        {AnnualRateCalculator.handleOvernightTime(time)}
         :00:00
       </option>
     ));
@@ -84,7 +76,7 @@ const FormElements = {
         value={start}
         onChange={(e) => {
           const startTime = parseInt(e.target.value, 10);
-          const endTime = handleOvernightTime(startTime);
+          const endTime = AnnualRateCalculator.handleOvernightTime(startTime);
 
           const newTimeRange = {
             start: startTime,

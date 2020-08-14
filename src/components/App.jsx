@@ -43,19 +43,29 @@ class App extends React.Component {
     this.checkCalculating();
   }
 
+  // Overrides component setState method, doing the needed math when a state value changes
+  // due to user input
   setState(newState) {
     // @TODO Will need to set calculating to true if state includes change to rateDefs.
 
     const annualFlat = newState.annualFlat || this.state.annualFlat;
     const annualTOU = newState.annualTOU || this.state.annualTOU;
-    const carImpactAnnualFlat = newState.carImpactAnnualFlat || this.state.carImpactAnnualFlat;
-    const carImpactAnnualTOU = newState.carImpactAnnualTOU || this.state.carImpactAnnualTOU;
+    const rateDefs = newState.rateDefs || this.state.rateDefs;
+    const carChargingHours = newState.carChargingHours || this.state.carChargingHours;
+    const milesPerYear = newState.milesPerYear || this.state.milesPerYear;
+
+    const carImpact = AnnualRateCalculator.getCarChargingCosts(rateDefs, carChargingHours, milesPerYear);
+
+    const carImpactAnnualFlat = carImpact.flatRate;
+    const carImpactAnnualTOU = carImpact.tou;
 
     const totalFlat = annualFlat + carImpactAnnualFlat;
     const totalTOU = annualTOU + carImpactAnnualTOU;
 
     const updatedNewState = newState;
 
+    updatedNewState.carImpactAnnualFlat = carImpactAnnualFlat;
+    updatedNewState.carImpactAnnualTOU = carImpactAnnualTOU;
     updatedNewState.totalFlat = totalFlat;
     updatedNewState.totalTOU = totalTOU;
 
