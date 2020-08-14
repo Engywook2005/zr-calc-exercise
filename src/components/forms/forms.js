@@ -32,7 +32,35 @@ const Forms = {
    * @returns {HTMLElement}
    */
   WhichRate(props) {
-    return (Forms.BasicForm(<div>which rate</div>));
+    const { userRate } = props;
+    const { onchange } = props;
+
+    const handleChange = (e) => {
+      onchange(e.target.value, 'userRate');
+    };
+
+    return (Forms.BasicForm(
+      <div>
+        <p className="panelTitle">Current billing plan</p>
+        <p>
+          <FormElements.UserRateRadioButtons
+            userRate={userRate}
+            onchange={handleChange}
+            buttonVal="flat"
+            title="Flat"
+          />
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          <FormElements.UserRateRadioButtons
+            userRate={userRate}
+            onchange={handleChange}
+            buttonVal="tou"
+            title="TOU"
+          />
+        </p>
+      </div>,
+    ));
   },
 
   /**
@@ -96,12 +124,16 @@ const Forms = {
         <p className="panelTitle">Compare Rates</p>
         <FormElements.OutputColumn
           title="Flat rate"
+          rateType="flat"
+          userRate={props.userRate}
           baseAnnual={props.annualFlat}
           carImpact={props.carImpactAnnualFlat}
           total={props.totalFlat}
         />
         <FormElements.OutputColumn
           title="TOU"
+          ratetype="tou"
+          userRate={props.userRate}
           baseAnnual={props.annualTOU}
           carImpact={props.carImpactAnnualTOU}
           total={props.totalTOU}

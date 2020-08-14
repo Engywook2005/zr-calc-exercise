@@ -17,7 +17,7 @@ class App extends React.Component {
           18: 0.08,
         },
       },
-      userRate: null,
+      userRate: 'flat',
       carChargingHours: {
         start: 0,
         end: 8,
@@ -66,8 +66,8 @@ class App extends React.Component {
 
     updatedNewState.carImpactAnnualFlat = carImpactAnnualFlat;
     updatedNewState.carImpactAnnualTOU = carImpactAnnualTOU;
-    updatedNewState.totalFlat = totalFlat;
-    updatedNewState.totalTOU = totalTOU;
+    updatedNewState.totalFlat = totalFlat.toFixed(2);
+    updatedNewState.totalTOU = totalTOU.toFixed(2);
 
     super.setState(updatedNewState);
   }
@@ -126,6 +126,7 @@ class App extends React.Component {
         <div className="calculator">
           <Forms.WhichRate
             userRate={userRate}
+            onchange={handleInputChange}
           />
           <Forms.MilesPerYear
             milesPerYear={milesPerYear}

@@ -13,6 +13,8 @@ const FormElements = {
     // @TODO color and background depending on user rate
 
     const { title } = props;
+    const { rateType } = props;
+    const { userRate } = props;
     const { baseAnnual } = props;
     const { carImpact } = props;
     const { total } = props;
@@ -88,6 +90,26 @@ const FormElements = {
       >
         {options}
       </select>
+    );
+  },
+
+  UserRateRadioButtons(props) {
+    const { userRate } = props;
+    const { onchange } = props;
+    const { title } = props;
+    const { buttonVal } = props;
+
+    return (
+      <span>
+        <input
+          type="radio"
+          value={buttonVal}
+          checked={userRate === buttonVal}
+          onChange={onchange}
+        />
+        &nbsp;
+        {title}
+      </span>
     );
   },
 };
