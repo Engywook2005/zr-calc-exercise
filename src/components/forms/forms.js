@@ -1,4 +1,5 @@
 import React from 'react';
+import FormElements from './formelements';
 
 /**
  * All of the forms that are in the calculator come from here.
@@ -15,7 +16,13 @@ const Forms = {
    */
   BasicForm(innerEl, props) {
     // @TODO put together basic form here.
-    return (<div>{ innerEl }</div>);
+    return (
+      <div
+        className="calcPanel"
+      >
+        { innerEl }
+      </div>
+    );
   },
 
   /**
@@ -61,7 +68,23 @@ const Forms = {
    * @returns {HTMLElement}
    */
   Output(props) {
-    return (Forms.BasicForm(<div>Output rates</div>));
+    return (Forms.BasicForm(
+      <div>
+        <FormElements.OutputColumn
+          title="Flat rate"
+          baseAnnual={props.annualFlat}
+          carImpact={props.carImpactAnnualFlat}
+          total={props.totalFlat}
+        />
+        <FormElements.OutputColumn
+          title="TOU"
+          baseAnnual={props.annualTOU}
+          carImpact={props.carImpactAnnualTOU}
+          total={props.totalTOU}
+        />
+        <p id="bestChoice">Your best rate:</p>
+      </div>,
+    ));
   },
 };
 

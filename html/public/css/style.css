@@ -3,3 +3,19 @@ body {
     color: #e3dac9;
     font-family: sans-serif;
 }
+
+.calcPanel {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e3dac9;
+    width: 400px;
+}
+
+.outputColumn {
+    float: left;
+    padding: 1rem;
+}
+
+#bestChoice {
+    clear: left;
+}

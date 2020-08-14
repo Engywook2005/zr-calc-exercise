@@ -21,5 +21,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.components'] }],
     'no-console': 0,
+    'react/prop-types': 0,
   },
 };

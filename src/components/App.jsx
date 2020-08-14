@@ -27,6 +27,8 @@ class App extends React.Component {
       annualTOU: 0,
       carImpactAnnualFlat: 0,
       carImpactAnnualTOU: 0,
+      totalFlat: 0,
+      totalTOU: 0,
       calculating: true,
     };
   }
@@ -41,6 +43,17 @@ class App extends React.Component {
 
   setState(newState) {
     // @TODO Will need to set calculating to true if state includes change to rateDefs.
+
+    const annualFlat = newState.annualFlat || this.state.annualFlat;
+    const annualTOU = newState.annualTOU || this.state.annualTOU;
+    const carImpactAnnualFlat = newState.carImpactAnnualFlat || this.state.carImpactAnnualFlat;
+    const carImpactAnnualTOU = newState.carImpactAnnualTOU || this.state.carImpactAnnualTOU;
+
+    const totalFlat = annualFlat + carImpactAnnualFlat;
+    const totalTOU = annualTOU + carImpactAnnualTOU;
+
+    newState.totalFlat = totalFlat;
+    newState.totalTOU = totalTOU;
 
     super.setState(newState);
   }
@@ -74,7 +87,7 @@ class App extends React.Component {
 
   render() {
     const { calculating } = this.state;
-    const calcModal = calculating ? Modals.CalculatingModal() : <div />;
+    const calcModal = calculating ? <Modals.CalculatingModal /> : <div />;
     const { userRate } = this.state;
     const { milesPerYear } = this.state;
     const { carChargingHours } = this.state;
@@ -82,32 +95,32 @@ class App extends React.Component {
     const { annualTOU } = this.state;
     const { carImpactAnnualFlat } = this.state;
     const { carImpactAnnualTOU } = this.state;
-
-    const whichRateForm = Forms.WhichRate({
-      userRate,
-    });
-    const milesPerYearForm = Forms.MilesPerYear({
-      milesPerYear,
-    });
-    const chargingHours = Forms.ChargingHours({
-      chargingStart: carChargingHours.start,
-      chargingEnd: carChargingHours.end,
-    });
-    const output = Forms.Output({
-      annualFlat,
-      annualTOU,
-      carImpactAnnualFlat,
-      carImpactAnnualTOU,
-    });
+    const { totalFlat } = this.state;
+    const { totalTOU } = this.state;
 
     return (
       <div>
         {calcModal}
         <div className="calculator">
-          <div>{whichRateForm}</div>
-          <div>{milesPerYearForm}</div>
-          <div>{chargingHours}</div>
-          <div>{output}</div>
+          <Forms.WhichRate
+            userRate={userRate}
+          />
+          <Forms.MilesPerYear
+            milesPerYear={milesPerYear}
+          />
+          <Forms.ChargingHours
+            chargingStart={carChargingHours.start}
+            chargingEnd={carChargingHours.end}
+          />
+          <Forms.Output
+            annualFlat={annualFlat}
+            annualTOU={annualTOU}
+            carImpactAnnualFlat={carImpactAnnualFlat}
+            carImpactAnnualTOU={carImpactAnnualTOU}
+            totalFlat={totalFlat}
+            totalTOU={totalTOU}
+            userRate={userRate}
+          />
         </div>
       </div>
     );
