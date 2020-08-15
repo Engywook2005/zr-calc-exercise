@@ -1,7 +1,7 @@
 {
-  "name": "nodemysqllogin",
+  "name": "zappyride-exercise",
   "version": "1.0.0",
-  "description": "Basic node.js serving with mysql db and registration/login handling",
+  "description": "Front end calculator for electric billing plans and impact on electric car charging.",
   "main": "index.js",
   "engines": {
     "node": "12.x"
