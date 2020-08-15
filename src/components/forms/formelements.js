@@ -13,11 +13,22 @@ const FormElements = {
     const { carImpact } = props;
     const { total } = props;
 
+    const outputTitle = `${title}${
+      rateType === userRate
+        ? ': your plan'
+        : ''
+    }`;
+
+    const columnStyle = rateType === userRate
+      ? { color: '#888800' }
+      : {};
+
     return (
       <div
         className="outputColumn"
+        style={columnStyle}
       >
-        <p><strong><u>{title}</u></strong></p>
+        <p><strong><u>{outputTitle}</u></strong></p>
         <p>
           <strong>Base Annual</strong>
           :
@@ -31,10 +42,12 @@ const FormElements = {
           {carImpact}
         </p>
         <p>
-          <strong>Total</strong>
-          :
-          {' '}
-          {total}
+          <strong>
+            Total
+            :
+            {' '}
+            <u>{total}</u>
+          </strong>
         </p>
       </div>
     );

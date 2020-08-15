@@ -135,7 +135,7 @@ const Forms = {
           />
           <FormElements.OutputColumn
             title="TOU"
-            ratetype="tou"
+            rateType="tou"
             userRate={props.userRate}
             baseAnnual={props.annualTOU}
             carImpact={props.carImpactAnnualTOU}
