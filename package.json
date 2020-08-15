@@ -9,6 +9,7 @@
   "scripts": {
     "buildLoadProfile": "node supporting",
     "buildDev": "webpack --mode development --config webpack/webpack.common.js",
+    "buildProd": "webpack --mode production --config webpack/webpack.common.js",
     "localServer": "node server"
   },
   "author": "Greg Thorson",
