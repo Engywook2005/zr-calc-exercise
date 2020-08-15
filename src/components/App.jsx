@@ -108,7 +108,6 @@ class App extends React.Component {
 
   render() {
     const { calculating } = this.state;
-    const calcModal = calculating ? <Modals.CalculatingModal /> : <div />;
     const { userRate } = this.state;
     const { milesPerYear } = this.state;
     const { carChargingHours } = this.state;
@@ -120,9 +119,12 @@ class App extends React.Component {
     const { totalTOU } = this.state;
     const { handleInputChange } = this;
 
+    if (calculating) {
+      return <Modals.CalculatingModal />;
+    }
+
     return (
       <div>
-        {calcModal}
         <div id="calculator">
           <Forms.WhichRate
             userRate={userRate}
