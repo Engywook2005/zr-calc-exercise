@@ -3,3 +3,30 @@ body {
     color: #e3dac9;
     font-family: sans-serif;
 }
+
+.calcPanel {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #e3dac9;
+    width: 200px;
+    height: 92px;
+    text-align: center;
+    padding: 10px;
+}
+
+.outputColumn {
+    float: left;
+    text-align: left;
+    min-width: 200px;
+}
+
+.panelTitle {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#calculator {
+    position: absolute;
+    left: 50%;
+    margin-left: -300px;
+}
