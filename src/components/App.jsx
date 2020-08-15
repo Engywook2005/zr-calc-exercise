@@ -123,7 +123,7 @@ class App extends React.Component {
     return (
       <div>
         {calcModal}
-        <div className="calculator">
+        <div id="calculator">
           <Forms.WhichRate
             userRate={userRate}
             onchange={handleInputChange}

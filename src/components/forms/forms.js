@@ -3,7 +3,6 @@ import FormElements from './formelements';
 
 /**
  * All of the forms that are in the calculator come from here.
- * @type {{WhichRate(*): *}}
  */
 const Forms = {
 
@@ -15,10 +14,12 @@ const Forms = {
    * @returns {HTMLElement}
    */
   BasicForm(innerEl, props) {
-    // @TODO put together basic form here.
+    const { style } = props || {};
+
     return (
       <div
         className="calcPanel"
+        style={style}
       >
         { innerEl }
       </div>
@@ -80,7 +81,8 @@ const Forms = {
           milesPerYear={milesPerYear}
           onchange={onchange}
         />
-        <p>{milesPerYear}</p>
+        {' '}
+        {milesPerYear}
       </div>,
     ));
   },
@@ -119,7 +121,7 @@ const Forms = {
    * @returns {HTMLElement}
    */
   Output(props) {
-    const clearLeftStyle = { clear: 'left' };
+    const clearLeftStyle = { clear: 'left', textAlign: 'left' };
 
     const savings = parseFloat((props.totalFlat - props.totalTOU).toFixed(2));
     let bestPlan = 'none';
@@ -133,7 +135,7 @@ const Forms = {
     const isOnBestPlan = props.userRate === bestPlan;
 
     let recommendation = `You ${isOnBestPlan ? 'are saving' : 'could save'} 
-      ${Math.abs(savings)} 
+      ${Math.abs(savings)} per year 
       ${isOnBestPlan ? 'by staying on' : 'by switching to'} a
       ${bestPlan === 'tou' ? 'Time of Use' : 'Flat Rate'} plan.       
       `;
@@ -165,6 +167,15 @@ const Forms = {
         </div>
         <p style={clearLeftStyle}>{recommendation}</p>
       </div>,
+      {
+        style: {
+          minWidth: '400px',
+          position: 'absolute',
+          top: '0px',
+          left: '222px',
+          height: '320px',
+        },
+      },
     ));
   },
 };
