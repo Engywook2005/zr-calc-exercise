@@ -121,6 +121,27 @@ const Forms = {
   Output(props) {
     const clearLeftStyle = { clear: 'left' };
 
+    const savings = parseFloat((props.totalFlat - props.totalTOU).toFixed(2));
+    let bestPlan = 'none';
+
+    if (savings > 0) {
+      bestPlan = 'tou';
+    } else if (savings < 0) {
+      bestPlan = 'flat';
+    }
+
+    const isOnBestPlan = props.userRate === bestPlan;
+
+    let recommendation = `You ${isOnBestPlan ? 'are saving' : 'could save'} 
+      ${Math.abs(savings)} 
+      ${isOnBestPlan ? 'by staying on' : 'by switching to'} a
+      ${bestPlan === 'tou' ? 'Time of Use' : 'Flat Rate'} plan.       
+      `;
+
+    if (bestPlan === 'none') {
+      recommendation = 'Well it turns out that either plan will cost you just as much.';
+    }
+
     return (Forms.BasicForm(
       <div>
         <p className="panelTitle">Compare Rates</p>
@@ -142,7 +163,7 @@ const Forms = {
             total={props.totalTOU}
           />
         </div>
-        <p style={clearLeftStyle}>Your best rate:</p>
+        <p style={clearLeftStyle}>{recommendation}</p>
       </div>,
     ));
   },
