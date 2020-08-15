@@ -119,26 +119,30 @@ const Forms = {
    * @returns {HTMLElement}
    */
   Output(props) {
+    const clearLeftStyle = { clear: 'left' };
+
     return (Forms.BasicForm(
       <div>
         <p className="panelTitle">Compare Rates</p>
-        <FormElements.OutputColumn
-          title="Flat rate"
-          rateType="flat"
-          userRate={props.userRate}
-          baseAnnual={props.annualFlat}
-          carImpact={props.carImpactAnnualFlat}
-          total={props.totalFlat}
-        />
-        <FormElements.OutputColumn
-          title="TOU"
-          ratetype="tou"
-          userRate={props.userRate}
-          baseAnnual={props.annualTOU}
-          carImpact={props.carImpactAnnualTOU}
-          total={props.totalTOU}
-        />
-        <p id="bestChoice">Your best rate:</p>
+        <div>
+          <FormElements.OutputColumn
+            title="Flat rate"
+            rateType="flat"
+            userRate={props.userRate}
+            baseAnnual={props.annualFlat}
+            carImpact={props.carImpactAnnualFlat}
+            total={props.totalFlat}
+          />
+          <FormElements.OutputColumn
+            title="TOU"
+            ratetype="tou"
+            userRate={props.userRate}
+            baseAnnual={props.annualTOU}
+            carImpact={props.carImpactAnnualTOU}
+            total={props.totalTOU}
+          />
+        </div>
+        <p style={clearLeftStyle}>Your best rate:</p>
       </div>,
     ));
   },
