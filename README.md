@@ -1,15 +1,8 @@
-## Directory Structure for Served Files
-### html
-All files to be served come from here
+## ZappyRide Calculator Exercise Install Steps
 
-#### public
-Non-sensitive static html plus assets: css, js, etc.
+1. ```npm install```
+1. ```npm run buildLoadProfile``` to create JSON loadProfile that server can readily work with.
+1. ```npm run buildDev``` to build js for React app.
+1. ```npm run localServer```
 
-#### queries
-Query handling urls. Target of AJAX calls, response is JSON.
-
-## EJS templated files
-### views
-
-#### app
-Single page app html and any other resources that need to interweave dynamic and static content.
+The app can then be seen at http://localhost:8082.  
